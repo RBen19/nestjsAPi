@@ -12,4 +12,12 @@ export class UserError extends Error {
       this.name = 'UsernameAlreadyTakenError';
     }
   }
+
+  export class GetAllUserError extends UserError{
+   
+    constructor(message:string) {
+        super(`${message}`)
+        this.name='GetAllUserError'
+    }
+  }
   
