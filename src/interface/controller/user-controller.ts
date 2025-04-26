@@ -5,7 +5,7 @@ import { UserPrismaRepo } from 'src/infra/database/prisma/repository/user-prisma
 import { CreateUserUseCase } from 'src/application/user/use-case/create-user.use-case';
 import { IPassHashService } from 'src/infra/services/IPassHashService';
 import { Response } from 'express';
-import { GetAllUserError, UsernameAlreadyTakenError } from 'src/domain/user/error-user';
+import { GetAllUserError, InvalidCredentialsError, UsernameAlreadyTakenError } from 'src/domain/user/error-user';
 @Controller('api/v1/user')
 export class UserController {
     private readonly createUserUseCase: CreateUserUseCase;
@@ -28,7 +28,7 @@ export class UserController {
         }
     }
 
-    @Post()
+    @Post('create')
     async create(@Body() dto:CreateUserDto,@Res() res:Response){
         try {
             const user = await  this.createUserUseCase.createUser(dto.username,dto.password)
@@ -54,6 +54,17 @@ export class UserController {
         }else{
             res.status(200).json({message:'username valide'})
         }
+    }
+    @Post('login')
+    async login(@Body() dto:CreateUserDto,@Res() res:Response){
+            try {
+                await this.createUserUseCase.login(dto.username,dto.password)
+              res.status(200).json({message:'log in'})
+            } catch (error) {
+                if(error instanceof InvalidCredentialsError)
+                    res.status(401).json({message:'username ou mot de passe incorrect '})
+
+            }
     }
 
 }
