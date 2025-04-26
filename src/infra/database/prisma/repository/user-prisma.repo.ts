@@ -12,6 +12,10 @@ export class UserPrismaRepo implements IUserRepository {
     constructor(private readonly prisma:PrismaService) {
         
     }
+   async getAllUsers(): Promise<User[]> {
+    const users = await this.prisma.user.findMany()
+    return users.map(user=> PrismaUserMapper.fromPrismaToDomain(user))
+  }
 
  async checkUsername(username: string): Promise<boolean> {
     const user = await this.prisma.user.findUnique({
