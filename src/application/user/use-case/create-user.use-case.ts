@@ -1,7 +1,7 @@
 import { IUserRepository } from "src/domain/user/user.repository";
 import { IPassHash } from "../interfaces/passHash";
 import { User } from "src/domain/user/user.entity";
-import { UsernameAlreadyTakenError } from "src/domain/user/error-user";
+import { GetAllUserError, UsernameAlreadyTakenError } from "src/domain/user/error-user";
 
 export class CreateUserUseCase{
     /**
@@ -22,5 +22,18 @@ export class CreateUserUseCase{
      }
    async checkUsername(username:string):Promise<Boolean>{
      return await this.repo.checkUsername(username);
+   }
+   async getAllUsers(){
+     try {
+
+         const users =  await this.repo.getAllUsers()
+
+         return users.map(user => ({
+          username: user.username
+         }));
+         
+     } catch (error) {
+          throw new GetAllUserError('une erreur est survenue lors du chargement de la liste ')
+     }
    }
 }
