@@ -1,6 +1,7 @@
 import { IUserRepository } from "src/domain/user/user.repository";
 import { IPassHash } from "../interfaces/passHash";
 import { User } from "src/domain/user/user.entity";
+import { UsernameAlreadyTakenError } from "src/domain/user/error-user";
 
 export class CreateUserUseCase{
     /**
@@ -11,8 +12,15 @@ export class CreateUserUseCase{
         public readonly Hasher:IPassHash) {}
 
    async createUser(username:string,password:string):Promise<User>{
+        const exists = await this.checkUsername(username);
+        if(exists){
+          throw new UsernameAlreadyTakenError(username)
+        }
         const hashedPass = await this.Hasher.hash(password)
         const user = new User(null,username,hashedPass)
         return this.repo.save(user)
+     }
+   async checkUsername(username:string):Promise<Boolean>{
+     return await this.repo.checkUsername(username);
    }
 }
