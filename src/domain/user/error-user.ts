@@ -20,4 +20,10 @@ export class UserError extends Error {
         this.name='GetAllUserError'
     }
   }
+export class InvalidCredentialsError extends UserError {
+    constructor() {
+      super('Username ou mot de passe invalide');
+      this.name = 'InvalidCredentialsError';
+    }
+  }
   
