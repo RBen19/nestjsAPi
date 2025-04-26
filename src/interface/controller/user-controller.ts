@@ -1,11 +1,11 @@
 import { Body, ConflictException, Controller, Get, HttpCode, InternalServerErrorException, Param, Post, Res } from '@nestjs/common';
-import { CreateUserDto } from '../dtos/user-dto';
+import { CreateUserDto} from '../dtos/user-dto';
 import { PrismaService } from 'src/infra/database/prisma/prisma.service';
 import { UserPrismaRepo } from 'src/infra/database/prisma/repository/user-prisma.repo';
 import { CreateUserUseCase } from 'src/application/user/use-case/create-user.use-case';
 import { IPassHashService } from 'src/infra/services/IPassHashService';
 import { Response } from 'express';
-import { UsernameAlreadyTakenError } from 'src/domain/user/error-user';
+import { GetAllUserError, UsernameAlreadyTakenError } from 'src/domain/user/error-user';
 @Controller('api/v1/user')
 export class UserController {
     private readonly createUserUseCase: CreateUserUseCase;
@@ -14,6 +14,18 @@ export class UserController {
         const repo = new UserPrismaRepo(prisma)
         const Hasher = new IPassHashService()
         this.createUserUseCase = new CreateUserUseCase(repo,Hasher)
+    }
+
+    @Get()
+    async getAllUsers(res:Response){
+        try {
+          return await this.createUserUseCase.getAllUsers();
+          
+        } catch (error) {
+
+            throw new InternalServerErrorException('erreur de serveur')
+
+        }
     }
 
     @Post()
