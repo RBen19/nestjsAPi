@@ -12,6 +12,16 @@ export class UserPrismaRepo implements IUserRepository {
     constructor(private readonly prisma:PrismaService) {
         
     }
+
+ async checkUsername(username: string): Promise<boolean> {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        username: username,
+      },
+    });
+    const isDone = user != null ? true : false;
+    return isDone;
+  }
     async save(user: User): Promise<User> {
         const data = PrismaUserMapper.fromDomainToPrisma(user);
       
