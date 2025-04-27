@@ -5,10 +5,16 @@ import { CreateUserUseCase } from './application/user/use-case/create-user.use-c
 import { PrismaService } from './infra/database/prisma/prisma.service';
 import { UserPrismaRepo } from './infra/database/prisma/repository/user-prisma.repo';
 import { UserController } from './interface/controller/user-controller';
+import { ConfigModule } from '@nestjs/config';
+import { JwtServiceImpl } from './infra/services/auth/jwtImpl';
 
 @Module({
-  imports: [],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,  
+    })
+  ],
   controllers: [AppController,UserController],
-  providers: [AppService,CreateUserUseCase,PrismaService,UserPrismaRepo],
+  providers: [AppService,CreateUserUseCase,PrismaService,UserPrismaRepo,JwtServiceImpl],
 })
 export class AppModule {}
