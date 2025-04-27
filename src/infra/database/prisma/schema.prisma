@@ -17,4 +17,13 @@ model User {
   idUser   Int     @default(autoincrement()) @id
   username String  @unique @db.VarChar(70)
   password String? @db.VarChar(255)
+  cars Car[]
+}
+model Car{
+  idCar Int @id @default(autoincrement()) 
+  Immatriculation String @unique @db.VarChar(70)
+  UserId Int
+  user User @relation(fields:[UserId],references:[idUser])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
