@@ -6,14 +6,18 @@ import { CreateUserUseCase } from 'src/application/user/use-case/create-user.use
 import { IPassHashService } from 'src/infra/services/IPassHashService';
 import { Response } from 'express';
 import { GetAllUserError, InvalidCredentialsError, UsernameAlreadyTakenError } from 'src/domain/user/error-user';
+import { JwtServiceImpl } from 'src/infra/services/auth/jwtImpl';
+import { ConfigService } from '@nestjs/config';
+
 @Controller('api/v1/user')
 export class UserController {
     private readonly createUserUseCase: CreateUserUseCase;
   
-    constructor(private readonly prisma:PrismaService) {
-        const repo = new UserPrismaRepo(prisma)
+    constructor(private readonly prisma:PrismaService,private readonly jwt: JwtServiceImpl,private readonly repo:UserPrismaRepo) {
+       // const repo = new UserPrismaRepo(prisma)
         const Hasher = new IPassHashService()
-        this.createUserUseCase = new CreateUserUseCase(repo,Hasher)
+        
+        this.createUserUseCase = new CreateUserUseCase(repo,Hasher,jwt)
     }
 
     @Get()
@@ -58,8 +62,8 @@ export class UserController {
     @Post('login')
     async login(@Body() dto:CreateUserDto,@Res() res:Response){
             try {
-                await this.createUserUseCase.login(dto.username,dto.password)
-              res.status(200).json({message:'log in'})
+               const token =  await this.createUserUseCase.login(dto.username,dto.password)
+              res.status(200).json({access_token:token})
             } catch (error) {
                 if(error instanceof InvalidCredentialsError)
                     res.status(401).json({message:'username ou mot de passe incorrect '})
