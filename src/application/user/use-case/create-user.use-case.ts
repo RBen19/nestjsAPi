@@ -2,15 +2,19 @@ import { IUserRepository } from "src/domain/user/user.repository";
 import { IPassHash } from "../interfaces/passHash";
 import { User } from "src/domain/user/user.entity";
 import { GetAllUserError, InvalidCredentialsError, UsernameAlreadyTakenError } from "src/domain/user/error-user";
+import { IJwtService } from "../interfaces/IJwtService";
 
 
 export class CreateUserUseCase{
     /**
      *
      */
+   
     constructor( 
         public readonly repo:IUserRepository,
-        public readonly Hasher:IPassHash) {}
+        public readonly Hasher:IPassHash,
+        public readonly jwt:IJwtService
+     ) {}
 
    async createUser(username:string,password:string):Promise<User>{
         const exists = await this.checkUsername(username);
@@ -40,19 +44,19 @@ export class CreateUserUseCase{
    async login(username:string,password:string):Promise<string>{
 
      const user = await this.repo.getUserByUsername(username)
-     console.log(user)
      if(user==null)
           throw new InvalidCredentialsError()
-     console.log('verif1 passer')
      if(!this.repo.checkUsername(username))
           throw new InvalidCredentialsError()
-     console.log('verif 2passer')
 
      if(!this.Hasher.compare(user!.password, password))
           throw new InvalidCredentialsError()
-     console.log('verif3 passer')
 
-     return 'hello-world';
+     const playload =  {sub:user.id,username:user.username}
+     const token = this.jwt.generateToken(playload);
+     console.log(token)
+     return this.jwt.generateToken(playload);
+   
    
    }
 }
