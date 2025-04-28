@@ -41,16 +41,16 @@
   depuis le terminal (Git bash préférences si vous êtes sur windows) lancez la commande : `npm install`
   ## Création du .env
   1. exemple de fichier .env
-    PORT = 3000 
-    DB_HOST=localhost
-    DB_PORT=5432
-    DB_USERNAME=buddy
-    DB_PASSWORD=Sweetheart
-    DB_NAME=ghost
-    JWT_SECRET = votre_secret_générer 
-    TOKEN_EXP = 2h
-    DB_SCHEMA=public
-    DATABASE_URL="postgresql://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?schema=${DB_SCHEMA}"
+     - PORT = 3000 
+     - DB_HOST=localhost
+     - DB_PORT=5432
+     -  DB_USERNAME=buddy
+     - DB_PASSWORD=Sweetheart
+     - DB_NAME=ghost
+     - JWT_SECRET = votre_secret_générer 
+     - TOKEN_EXP = 2h
+     - DB_SCHEMA=public
+     - DATABASE_URL="postgresql://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?schema=${DB_SCHEMA}"
   2. explication du role de chaque variable du .env
   toujours à la racine du projet créer un fichier .env avec les variables suivantes :
 
