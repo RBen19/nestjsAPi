@@ -1,9 +1,9 @@
 import { Car } from "src/domain/car/car.entity";
-import { CarRepository } from "src/domain/car/car.repository";
+import { ICarRepository } from "src/domain/car/car.repository";
 import { PrismaCarMapper } from "../mapper/prisma-car.mapper";
 import { PrismaService } from "../prisma.service";
 
-export class CarImpl implements CarRepository{
+export class CarImpl implements ICarRepository{
     /**
      *
      */
