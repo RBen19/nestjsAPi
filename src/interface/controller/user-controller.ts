@@ -63,7 +63,7 @@ export class UserController {
     async login(@Body() dto:CreateUserDto,@Res() res:Response){
             try {
                const token =  await this.createUserUseCase.login(dto.username,dto.password)
-              res.status(200).json({access_token:token})
+            return  res.status(200).json({access_token:token})
             } catch (error) {
                 if(error instanceof InvalidCredentialsError)
                     res.status(401).json({message:'username ou mot de passe incorrect '})
