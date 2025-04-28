@@ -96,7 +96,7 @@
     {
      "message": "utilisateur créer"
     }
-    3. Tester une route protégée sans authentification
+  3. Tester une route protégée sans authentification
    -  Méthode : GET
    -  Endpoint : /api/v1/car
    - exemple url : `http://localhost:3001/api/v1/car`
@@ -105,7 +105,7 @@
       "message": "Unauthorized",
       "statusCode": 401
     }
-    4. Authentification (login utilisateur)
+  4. Authentification (login utilisateur)
     - Méthode : POST
     - Endpoint : /api/v1/user/login  
     - exemple url : `http://localhost:3001/api/v1/user/login`
@@ -119,7 +119,7 @@
       "access_token": "<YOUR_TOKEN_JWT>"
      }
      Copiez ce token, il sera utilisé pour authentifier les prochaines requêtes.
-    5. Ajouter une voiture (route protégée)
+  5. Ajouter une voiture (route protégée)
      -  Méthode : POST
      - Endpoint : /api/v1/car/createCar
      - Exemple d’URL : `http://localhost:3001/api/v1/car/createCar`
@@ -135,7 +135,7 @@
        {
          "message": "nouvel enregistrement réussit "
        }
-      6. Récupérer les voitures d’un utilisateur authentifié
+  6. Récupérer les voitures d’un utilisateur authentifié
        -  Méthode : GET
        - Endpoint : /api/v1/car
 
