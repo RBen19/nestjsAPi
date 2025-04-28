@@ -1,98 +1,168 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+  # Présentation Du Projet :
+  Ce projet a pour objectif de démontrer l'utilisation du framework NestJS pour la création d'une API REST sécurisée. Il met en œuvre l'authentification des utilisateurs à l'aide de JSON Web Tokens (JWT), avec les objectifs suivants :
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+  - Authentifier les utilisateurs via un système de login basé sur JWT
+  - Protéger certaines routes de l'API à l’aide d’un middleware d’authentification
+  - Restreindre l’accès aux routes protégées aux utilisateurs non authentifiés.
 
-## Description
+  # Architecture du projet : 
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+  L’architecture du projet suit les principes de la Clean Architecture, séparant les responsabilités en plusieurs couches (domaine, application, infrastructure (infra dans le projet ), interface) pour une meilleure maintenabilité et évolutivité.
+  
+  # Fonctionnalités :
+    Afin d’illustrer les objectifs mentionnés précédemment, ce projet met en œuvre les fonctionnalités suivantes :
 
-## Project setup
+    - Création d’utilisateurs : inscription d’un nouvel utilisateur via une route publique.
 
-```bash
-$ npm install
-```
+    - Authentification avec JWT : connexion d’un utilisateur et génération d’un token d’accès sécurisé.
 
-## Compile and run the project
+    - Création de voitures (Car) : ajout d’une voiture associée à un utilisateur authentifié.
 
-```bash
-# development
-$ npm run start
+    - Affichage des voitures d’un utilisateur : récupération de la liste des voitures appartenant à l’utilisateur connecté.
 
-# watch mode
-$ npm run start:dev
+    - Chaque action protégée nécessite une authentification préalable via JWT, garantissant un accès sécurisé aux ressources.
 
-# production mode
-$ npm run start:prod
-```
+  # Outils utilisés :
 
-## Run tests
+        | Outils                  | Version         |
+    |------------------------|-----------------|
+    | Node.js                | v23.6.0         |
+    | npm                    | v10.9.2         |
+    | PostgreSQL             | v17             |
+    | pgAdmin 4              | v8.14           |
+    | Git Bash (Windows)     | v2.47.1         |
+    | Postman                | v11.42.4        |
+    | Visual Studio Code     | v1.99.3.0       |
 
-```bash
-# unit tests
-$ npm run test
+  # Setup du projet  :
+   ##  Installation des dépendances
+  Assurez vous d'être à la racine du projet d'avoir une bonne connexion internet et bien sûr les outils nécessaire. 
+  depuis le terminal (Git bash préférences si vous êtes sur windows) lancez la commande : `npm install`
+  ## Création du .env
+  1. exemple de fichier .env
+    PORT = 3000 
+    DB_HOST=localhost
+    DB_PORT=5432
+    DB_USERNAME=buddy
+    DB_PASSWORD=Sweetheart
+    DB_NAME=ghost
+    JWT_SECRET = votre_secret_générer 
+    TOKEN_EXP = 2h
+    DB_SCHEMA=public
+    DATABASE_URL="postgresql://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?schema=${DB_SCHEMA}"
+  2. explication du role de chaque variable du .env
+  toujours à la racine du projet créer un fichier .env avec les variables suivantes :
 
-# e2e tests
-$ npm run test:e2e
+  - PORT : le port sur lequel va lancer l'application 
+  - DB_HOST : votre host
+  - DB_PORT : qui représente le port  utilisé par votre base de donées
+  - DB_USERNAME : qui représente le nom de l'utilisateur de la base de données
+  - DB_PASSWORD : qui represente le mot de passe de l'utilisateur de base de données
+  - DB_NAME : qui représente le nom de la base de données
+  - DB_SCHEMA :  qui représente  le schema utilisé par votre BDD (important pour prisma)
+  - JWT_SECRET : qui  représente votre secretJWt
+  - TOKEN_EXP : qui représente la durée d'expiration du Token jwt 
+  - DATABASE_URL : qui représente la chaine de connexion pour prisma 
+  NB: 
+  vous pouvez générer un secret JWt sécuriser sur le site : `https://jwtsecret.com/generate`
+  vérifiez que le port ne l'application est libre  
+ ### le schema = public est celui utilisé par defaut par postgrès 
+ ## Prisma : 
+  Toujours depuis le terminal; pour setup prisma dans le projet vous devez lancez les commandes : 
+  `npx prisma migrate deploy --schema=./src/infra/database/prisma/schema.prisma` : pour lancer les migrations
+  `npx prisma generate --schema=./src/infra/database/prisma/schema.prisma`: générer le clien prisma
+  `npx prisma migrate status --schema=./src/infra/database/prisma/schema.prisma` :  pour vérifier le status des migrations
+   ou lancez  le script `npm run prisma:init` : qui fait les trois.
 
-# test coverage
-$ npm run test:cov
-```
+ # Test sur un client :
+  une fois que le setup du projet est fait il est enfin temps de tester le projet.
+  lancez la commande `npm run start:dev` 
+  1. Test d'une route publique 
+  -  Méthode : GET
+  -  Endpoint : /api/v1/car/hello
+  -  exemple url : `http://localhost:3001/api/v1/car/hello`
+  - réponse attendue : "hello from car"
+  2. Création d’un utilisateur
+   - Méthode : POST
+   - Endpoint : /api/v1/user/create
+   - Exemple d’URL : `http://localhost:3001/api/v1/user/create`
+   - exemple de Json :
+    {
+     "username": "Sweetheart",
+     "password": "sukali"
+    }
+   - Réponse attendue :
+    {
+     "message": "utilisateur créer"
+    }
+    3. Tester une route protégée sans authentification
+   -  Méthode : GET
+   -  Endpoint : /api/v1/car
+   - exemple url : `http://localhost:3001/api/v1/car`
+   - Réponse attendue :
+    {
+      "message": "Unauthorized",
+      "statusCode": 401
+    }
+    4. Authentification (login utilisateur)
+    - Méthode : POST
+    - Endpoint : /api/v1/user/login  
+    - exemple url : `http://localhost:3001/api/v1/user/login`
+    - exemple de json :
+      {
+       "username": "Sweetheart",
+       "password": "sukali"
+      }
+    - Réponse attendue : 
+     {
+      "access_token": "<YOUR_TOKEN_JWT>"
+     }
+     Copiez ce token, il sera utilisé pour authentifier les prochaines requêtes.
+    5. Ajouter une voiture (route protégée)
+     -  Méthode : POST
+     - Endpoint : /api/v1/car/createCar
+     - Exemple d’URL : `http://localhost:3001/api/v1/car/createCar`
+     * config postman pour utiliser le token 
+     -  Allez dans l'onglet Authorization.
+     - Type : Bearer Token.
+     - Collez le token obtenu précédemment.
+     - Dans l’onglet Body → raw → JSON, ajoutez : 
+      {
+        "immatriculation": "AB-CD-EF"
+      }
+      - Réponse attendue : 
+       {
+         "message": "nouvel enregistrement réussit "
+       }
+      6. Récupérer les voitures d’un utilisateur authentifié
+       -  Méthode : GET
+       - Endpoint : /api/v1/car
 
-## Deployment
+       - Exemple d’URL : `http://localhost:3001/api/v1/car`
+       - Réponse attendue : 
+       {
+          "car": [
+              {
+                  "carId": 5,
+                  "immatriculation": "AB-CD-EF",
+                  "userId": 12
+              }
+          ]
+        }
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+    
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+ 
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
 
-## Resources
 
-Check out a few resources that may come in handy when working with NestJS:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
-## Support
+   
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
