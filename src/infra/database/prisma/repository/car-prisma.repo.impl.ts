@@ -10,6 +10,15 @@ export class CarImpl implements ICarRepository{
      *
      */
     constructor(private readonly prisma:PrismaService) {}
+    
+   async checkImmatriculation(immatriculation: string): Promise<boolean> {
+        const car =  await this.prisma.car.findUnique({
+            where:{
+                Immatriculation:immatriculation!
+            }
+        })
+        return car !=null ? true:false
+    }
   async  saveCar(car: Car): Promise<Car> {
 
         const prismaCar = PrismaCarMapper.fromDomainToPrisma(car);
