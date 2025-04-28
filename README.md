@@ -64,9 +64,9 @@
   - JWT_SECRET : qui  représente votre secretJWt
   - TOKEN_EXP : qui représente la durée d'expiration du Token jwt 
   - DATABASE_URL : qui représente la chaine de connexion pour prisma 
-  NB: 
-  vous pouvez générer un secret JWt sécuriser sur le site : `https://jwtsecret.com/generate`
-  vérifiez que le port ne l'application est libre  
+  - NB: 
+   - vous pouvez générer un secret JWt sécuriser sur le site : `https://jwtsecret.com/generate`
+   -  vérifiez que le port ne l'application est libre  
  ### le schema = public est celui utilisé par defaut par postgrès 
  ## Prisma : 
   Toujours depuis le terminal; pour setup prisma dans le projet vous devez lancez les commandes : 
