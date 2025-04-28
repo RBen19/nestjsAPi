@@ -11,3 +11,10 @@ export class InvalidImmatriculation extends CarError{
         this.name = 'InvalidImmatriculation'
     }
 }
+
+export class NoCars extends CarError{
+    constructor() {
+        super(`vous n'avez aucune voiture `);
+        this.name='NoCars'
+    }
+}
