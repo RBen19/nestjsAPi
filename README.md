@@ -69,7 +69,7 @@
    -  vérifiez que le port ne l'application est libre  
  ### le schema = public est celui utilisé par defaut par postgrès 
  ## Prisma : 
-  Toujours depuis le terminal; pour setup prisma dans le projet vous devez lancez les commandes : 
+  Toujours depuis le terminal à la racine du projet ; pour setup prisma dans le projet vous devez lancez les commandes : 
    - `npx prisma migrate deploy --schema=./src/infra/database/prisma/schema.prisma` : pour lancer les migrations
    - `npx prisma generate --schema=./src/infra/database/prisma/schema.prisma`: générer le clien prisma
    - `npx prisma migrate status --schema=./src/infra/database/prisma/schema.prisma` :  pour vérifier le status des migrations
