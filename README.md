@@ -106,19 +106,19 @@
       "statusCode": 401
     }
   4. Authentification (login utilisateur)
-    - Méthode : POST
-    - Endpoint : /api/v1/user/login  
-    - exemple url : `http://localhost:3001/api/v1/user/login`
-    - exemple de json :
+      - Méthode : POST
+      - Endpoint : /api/v1/user/login  
+      - exemple url : `http://localhost:3001/api/v1/user/login`
+      - exemple de json :
+       {
+        "username": "Sweetheart",
+        "password": "sukali"
+       }
+       - Réponse attendue : 
       {
-       "username": "Sweetheart",
-       "password": "sukali"
+       "access_token": "<YOUR_TOKEN_JWT>"
       }
-    - Réponse attendue : 
-     {
-      "access_token": "<YOUR_TOKEN_JWT>"
-     }
-     Copiez ce token, il sera utilisé pour authentifier les prochaines requêtes.
+      Copiez ce token, il sera utilisé pour authentifier les prochaines requêtes.
   5. Ajouter une voiture (route protégée)
      -  Méthode : POST
      - Endpoint : /api/v1/car/createCar
