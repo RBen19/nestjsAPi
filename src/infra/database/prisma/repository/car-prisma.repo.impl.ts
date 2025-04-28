@@ -10,6 +10,17 @@ export class CarImpl implements ICarRepository{
      *
      */
     constructor(private readonly prisma:PrismaService) {}
+   async findCarByUserId(userId: number): Promise<Car[]> {
+        const cars = await this.prisma.car.findMany({
+            where:{
+                UserId:userId
+            }
+        });
+
+       const domainCars: Car[] = cars.map(c => PrismaCarMapper.fromPrismaToDomain(c));
+       return domainCars;
+        
+    }
     
    async checkImmatriculation(immatriculation: string): Promise<boolean> {
         const car =  await this.prisma.car.findUnique({
