@@ -7,6 +7,7 @@ import { UserPrismaRepo } from './infra/database/prisma/repository/user-prisma.r
 import { UserController } from './interface/controller/user-controller';
 import { ConfigModule } from '@nestjs/config';
 import { JwtServiceImpl } from './infra/services/auth/jwtImpl';
+import { CarImpl } from './infra/database/prisma/repository/car-prisma.repo.impl';
 
 @Module({
   imports: [
@@ -15,6 +16,6 @@ import { JwtServiceImpl } from './infra/services/auth/jwtImpl';
     })
   ],
   controllers: [AppController,UserController],
-  providers: [AppService,CreateUserUseCase,PrismaService,UserPrismaRepo,JwtServiceImpl],
+  providers: [AppService,CreateUserUseCase,PrismaService,UserPrismaRepo,JwtServiceImpl,CarImpl],
 })
 export class AppModule {}
