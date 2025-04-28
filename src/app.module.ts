@@ -10,6 +10,7 @@ import { JwtServiceImpl } from './infra/services/auth/jwtImpl';
 import { CarImpl } from './infra/database/prisma/repository/car-prisma.repo.impl';
 import { CarController } from './interface/controller/car-controller';
 import { AuthModule } from './infra/auth/auth.module';
+import { SaveCarUseCase } from './application/car/use-case/save-car.use-case';
 
 @Module({
   imports: [
@@ -19,6 +20,11 @@ import { AuthModule } from './infra/auth/auth.module';
     AuthModule
   ],
   controllers: [AppController,UserController,CarController],
-  providers: [AppService,CreateUserUseCase,PrismaService,UserPrismaRepo,JwtServiceImpl,CarImpl],
+  providers: [
+              AppService,CreateUserUseCase,
+              PrismaService,UserPrismaRepo,
+              JwtServiceImpl,CarImpl,
+              SaveCarUseCase
+            ],
 })
 export class AppModule {}
