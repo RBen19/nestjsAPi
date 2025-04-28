@@ -3,24 +3,45 @@ import { JwtAuthGuard } from "src/infra/auth/jwt-guard";
 import { CarDto } from "../dtos/car-dto";
 import { SaveCarUseCase } from "src/application/car/use-case/save-car.use-case";
 import { Car } from "src/domain/car/car.entity";
-import { InvalidImmatriculation } from "src/domain/car/car-error";
+import { InvalidImmatriculation, NoCars } from "src/domain/car/car-error";
 import { CarImpl } from "src/infra/database/prisma/repository/car-prisma.repo.impl";
+import { FindCarsByUserId } from "src/application/car/use-case/findCarByUserId.use-case";
 
 @Controller('api/v1/car')
 export class CarController {
     /**
      *
      */
-    constructor(private readonly saveCarUseCase:SaveCarUseCase,private readonly carRepoImpl:CarImpl  ) { 
+    constructor(
+        private readonly saveCarUseCase:SaveCarUseCase,
+        private readonly carRepoImpl:CarImpl,
+        private readonly findCarsByUserId:FindCarsByUserId
+      ) { 
         this.saveCarUseCase = new SaveCarUseCase(carRepoImpl)
+        this.findCarsByUserId = new FindCarsByUserId(carRepoImpl)
     }
-    @Get()
+    @Get('/hello')
     async helloCar(){
         return 'hello from car '
     }
+
+    @Get()
+    @UseGuards(JwtAuthGuard)
+    async FindCarsByUserId(@Request() req,@Response() res){
+        try {
+        const   cars =   await this.findCarsByUserId.execute(req.user.user_id)
+           return res.status(200).json({
+            car:cars
+           })
+        } catch (error) {
+            if(error instanceof NoCars)
+                return {message:'vous n\'avez aucune voiture' }
+            throw new InternalServerErrorException
+        }
+    }
     @Post('/createCar')
     @UseGuards(JwtAuthGuard)
-    async helloProtected(@Request() req,@Body() dto:CarDto,@Response() res){
+    async createCar(@Request() req,@Body() dto:CarDto,@Response() res){
         try {
             const car  =  new Car(null,dto. immatriculation,req.user.user_id) 
             await this.saveCarUseCase.execute(car)
