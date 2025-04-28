@@ -11,6 +11,7 @@ import { CarImpl } from './infra/database/prisma/repository/car-prisma.repo.impl
 import { CarController } from './interface/controller/car-controller';
 import { AuthModule } from './infra/auth/auth.module';
 import { SaveCarUseCase } from './application/car/use-case/save-car.use-case';
+import { FindCarsByUserId } from './application/car/use-case/findCarByUserId.use-case';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { SaveCarUseCase } from './application/car/use-case/save-car.use-case';
               AppService,CreateUserUseCase,
               PrismaService,UserPrismaRepo,
               JwtServiceImpl,CarImpl,
-              SaveCarUseCase
+              SaveCarUseCase,FindCarsByUserId
             ],
 })
 export class AppModule {}
