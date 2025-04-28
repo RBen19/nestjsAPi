@@ -70,10 +70,10 @@
  ### le schema = public est celui utilisé par defaut par postgrès 
  ## Prisma : 
   Toujours depuis le terminal; pour setup prisma dans le projet vous devez lancez les commandes : 
-  `npx prisma migrate deploy --schema=./src/infra/database/prisma/schema.prisma` : pour lancer les migrations
-  `npx prisma generate --schema=./src/infra/database/prisma/schema.prisma`: générer le clien prisma
-  `npx prisma migrate status --schema=./src/infra/database/prisma/schema.prisma` :  pour vérifier le status des migrations
-   ou lancez  le script `npm run prisma:init` : qui fait les trois.
+   - `npx prisma migrate deploy --schema=./src/infra/database/prisma/schema.prisma` : pour lancer les migrations
+   - `npx prisma generate --schema=./src/infra/database/prisma/schema.prisma`: générer le clien prisma
+   - `npx prisma migrate status --schema=./src/infra/database/prisma/schema.prisma` :  pour vérifier le status des migrations
+   - ou lancez  le script `npm run prisma:init` : qui fait les trois.
 
  # Test sur un client :
   une fois que le setup du projet est fait il est enfin temps de tester le projet.
