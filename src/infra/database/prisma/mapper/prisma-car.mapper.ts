@@ -1,7 +1,7 @@
 import { Car as PrismaCar } from "../../generated/prisma";
 import { Car as DomainCar } from "src/domain/car/car.entity";
 
-export class PrismaMapper{
+export class PrismaCarMapper{
     static fromDomainToPrisma(car:DomainCar):Partial<PrismaCar>{
         return {
             Immatriculation : car.immatriculation,
