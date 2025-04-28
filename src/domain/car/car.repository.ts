@@ -1,5 +1,5 @@
 import { Car } from "./car.entity";
 
-export interface CarRepository{
+export interface ICarRepository{
     saveCar(car:Car):Promise<Car>
 }
