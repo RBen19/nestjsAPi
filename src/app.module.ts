@@ -8,14 +8,17 @@ import { UserController } from './interface/controller/user-controller';
 import { ConfigModule } from '@nestjs/config';
 import { JwtServiceImpl } from './infra/services/auth/jwtImpl';
 import { CarImpl } from './infra/database/prisma/repository/car-prisma.repo.impl';
+import { CarController } from './interface/controller/car-controller';
+import { AuthModule } from './infra/auth/auth.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,  
-    })
+    }),
+    AuthModule
   ],
-  controllers: [AppController,UserController],
+  controllers: [AppController,UserController,CarController],
   providers: [AppService,CreateUserUseCase,PrismaService,UserPrismaRepo,JwtServiceImpl,CarImpl],
 })
 export class AppModule {}
